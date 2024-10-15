@@ -9,7 +9,20 @@
             <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
             <link rel="stylesheet" href="{% static 'css/base.css' %}">
         </header>
+        <div class="nav-left">
+            <h1><a href="{% url 'home' %}">Blog App</a></h1>
+        </div>
+        <div class="nav-right"></div>
+            <a href="{% url 'post_new' %}">+ New Blog Post</a>
         <div>
+            {% if user.is_authenticated %}
+                <p>Hey {{user.username}}!</p>
+                <p><button><a href="{% url 'logout' %}">Log out</a></button></p>
+            {% else %}
+                <p>You are not logged in.</p>
+                <button><a href="{% url 'login' %}">Login</a></button>
+                <button><a href="{% url 'signup' %}">Signup</a></button>
+            {% endif %}
             {% block content %}
             {% endblock content %}
         </div>
